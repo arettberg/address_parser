@@ -1,0 +1,12 @@
+<div id="new-form">
+	<%= form_for(@text_block) do |f| %>
+		<%= f.label :text, "Enter an address:" %><br>
+		<%= f.text_area :text, size: "30x10" %><br>
+		<%= f.submit "Parse Address", action: 'create' %><br>
+	<% end %>
+</div>
+<br>
+<table border=1px cellpadding=6px>
+	<%= render 'address_table_header' %>
+	<%= render @text_blocks.reverse %>
+</table>
