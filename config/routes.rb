@@ -1,9 +1,9 @@
 AddressParser::Application.routes.draw do
-  resources :text_blocks, only: [:index, :create, :destroy]
   
-  root to: 'text_blocks#index'
-
-  get "text_blocks/delete"
+  resources :text_blocks, only: [:index, :create, :destroy]
+  resources :addresses, only: [:index, :create, :destroy]
+  
+  root to: 'addresses#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

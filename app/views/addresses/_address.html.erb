@@ -1,0 +1,37 @@
+<tr>
+	<td>
+		<% address.text_block.split("\n").each do |line| %>
+			<%= line %><br>
+		<% end %>
+	</td>
+	<td>
+		<%= address.name_1 %>
+	</td>
+	<td>
+		<%= address.name_2 %>
+	</td>
+	<td>
+		<%= address.name_3 %>
+	</td>
+	<td>
+		<%= address.street_number %>
+	</td>
+	<td>
+		<%= address.street_name %>
+	</td>
+	<td>
+		<%= address.unit_number%>
+	</td>
+	<td>
+		<%= address.city %>
+	</td>
+	<td>
+		<%= address.state %>
+	</td>
+	<td>
+		<%= address.zip_5 %>
+	</td>
+	<td>
+		<%= address.zip_4 %>
+	</td>
+</tr>

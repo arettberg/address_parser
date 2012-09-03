@@ -1,5 +1,7 @@
 class TextBlocksController < ApplicationController
     
+    include TextBlocksHelper
+    
     def index
         @text_blocks = TextBlock.all
         @text_block = TextBlock.new
@@ -11,11 +13,27 @@ class TextBlocksController < ApplicationController
 
     def create
         @text_block = TextBlock.new(params[:text_block])
+        parsed_hash = parse_address_text(@text_block.text)
         
-        if @text_block.save
-            @text_block.address = Address.create
-            redirect_to root_path
+        #write errors to flash
+        if(parsed_hash[:errors].any?)
+            flash[:warning] = parsed_hash[:errors]
+        end
+        
+        @address = Address.new(parsed_hash[:address])
+
+        
+        if @address.save 
+            @text_block.address = @address
+            if @text_block.save
+                redirect_to root_path
+            else
+                @address.destroy
+                @text_blocks = TextBlock.all
+                render 'index'
+            end
         else
+            @text_blocks = TextBlock.all
             render 'index'
         end
     end

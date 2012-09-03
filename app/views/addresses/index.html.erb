@@ -1,17 +1,16 @@
-
 <div id="new-form">
 	<%= form_for(@address) do |f| %>
 		<div id="form-errors">
-			<%= render 'shared/error_messages', object: Address %>
+			<%= render 'shared/error_messages', object: f.object %>
 		</div>
 		
-		<%= f.label :text, "Enter an address:" %><br>
-		<%= f.text_area :text, size: "30x10" %><br>
+		<%= f.label :text_block, "Enter an address:" %><br>
+		<%= f.text_area :text_block, size: "30x10" %><br>
 		<%= f.submit "Parse Address", action: 'create' %><br>
 	<% end %>
 </div>
 <br>
 <table border=1px cellpadding=6px>
 	<%= render 'address_table_header' %>
-	<%= render @text_blocks.reverse %>
+	<%= render @addresses.reverse %>
 </table>

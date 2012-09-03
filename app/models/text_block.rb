@@ -3,5 +3,6 @@ class TextBlock < ActiveRecord::Base
     has_one :address
 
     validates :text, presence: true
+    validates :address, presence: true
   
 end

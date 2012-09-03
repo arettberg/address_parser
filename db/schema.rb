@@ -14,13 +14,15 @@
 ActiveRecord::Schema.define(:version => 20120902073519) do
 
   create_table "addresses", :force => true do |t|
-    t.string   "name1"
-    t.string   "name2"
-    t.string   "name3"
+    t.text     "text_block"
+    t.string   "name_1"
+    t.string   "name_2"
+    t.string   "name_3"
     t.string   "salutation"
     t.string   "suffix"
-    t.string   "address1"
-    t.string   "address2"
+    t.string   "street_number"
+    t.string   "street_name"
+    t.string   "unit_number"
     t.string   "city"
     t.string   "state"
     t.integer  "zip_5"
