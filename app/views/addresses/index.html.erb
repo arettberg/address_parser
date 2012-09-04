@@ -10,9 +10,10 @@
 	<% end %>
 </div>
 <br>
-<table border=1px cellpadding=6px>
-	<% if @addresses.any? %>
+
+<% if @addresses.any? %>
+	<table border=1px cellpadding=6px>
 		<%= render 'address_table_header' %>
 		<%= render @addresses.reverse %>
-	<% end %>
-</table>
+	</table>
+<% end %>
