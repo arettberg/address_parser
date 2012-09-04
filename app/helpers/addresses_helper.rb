@@ -27,7 +27,7 @@ module AddressesHelper
                          value_regex: ALL_REGEX},
                         #po box #
                         {value_label: :po_box, value_type: :integer, key_regex: PO_BOX_FULL_REGEX,
-                         key_db_regex: PO_BOX_REGEX, value_regex: NUM_REGEX},
+                         value_regex: NUM_REGEX},
                         #street #/name
                         {key_label: :street_number, value_label: :street_name, key_type: :integer,
                          value_type: :string, key_regex: /^\d+/, value_regex: /\D+$/}]
@@ -35,7 +35,8 @@ module AddressesHelper
                          # Additional funcionality of above data/method:
                          # if the indicator detection relies on the full key/value pair but the key_match
                          # must still be stored independent of the value, adding a :key_db_regex value
-                         # will separate the in-text key from the value
+                         # will separate the in-text key from the value. For example, if we wanted to store
+                         # the specific way 'p.o. box' was entered:
                          # {key_label: :box_name, value_label: :po_box, key_type: :string,
                          #  value_type: :integer, key_regex: PO_BOX_FULL_REGEX,
                          #  key_db_regex: PO_BOX_REGEX, value_regex: NUM_REGEX}
@@ -60,6 +61,7 @@ def test_parser
 end
 #********************DEBUG/TEST ONLY**********************************DEBUG/TEST ONLY**********************
 
+#MAIN FUNCTION
 def parse_address_text(text)        
     #clear variables
     @errors = []
@@ -202,13 +204,11 @@ def find_indicators(line)
     return line
 end
 
-
 def parse_street_address(text_ary)
     @address_hash[:street_number] = text_ary[0]
     @address_hash[:street_name] = \
         text_ary[1, address[0].size].map {|s| s.capitalize}.join(" ")
 end
-
 
 def parse_bottom_line(text_ary)
     #****************************DEBUG***************************************DEBUG******************************
@@ -216,7 +216,6 @@ def parse_bottom_line(text_ary)
     #****************************DEBUG***************************************DEBUG******************************
     state_index = find_state_abbr(text_ary)
     city = ""
-    zip_5 = ""
     zip_4 = ""
     
     #get city name
