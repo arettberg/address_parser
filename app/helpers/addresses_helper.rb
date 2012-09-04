@@ -24,7 +24,7 @@ module AddressesHelper
                          value_type: :integer, key_regex: APT_REGEX, value_regex: NUM_REGEX},
                         #c/o name
                         {value_label: :care_of, value_type: :string, key_regex: CO_REGEX,
-                         value_regex: ALL_REGEX},
+                         key_db_regex: CO_REGEX, value_regex: ALL_REGEX},
                         #po box #
                         {value_label: :po_box, value_type: :integer, key_regex: PO_BOX_FULL_REGEX,
                          value_regex: NUM_REGEX},
@@ -160,6 +160,7 @@ def find_indicators(line)
             key_match.strip! 
             
             index = line.downcase.index(key_match)
+            index += key_db_match.size if hash[:key_db_regex]
             
             #make sure the value is after the key
             #example: key=>'#', value=>'/\d+', "3455 Edison Way, #17" should return 17, not 3455
@@ -184,10 +185,10 @@ def find_indicators(line)
             end
             
             #****************************DEBUG***************************************DEBUG******************************
-            # puts "line: '#{line}'"
-            # puts "key_match: '#{key_match}'"
-            # puts "key_db_match: #{key_db_match}"
-            # puts "value_match: '#{value_match}'"
+            puts "line: '#{line}'"
+            puts "key_match: '#{key_match}'"
+            puts "key_db_match: #{key_db_match}"
+            puts "value_match: '#{value_match}'"
             #****************************DEBUG***************************************DEBUG******************************
             
             #if this was at the end of the address line, chop the 'apt x' off and continue
