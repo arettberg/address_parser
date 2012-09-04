@@ -6,8 +6,6 @@ class CreateAddresses < ActiveRecord::Migration
             t.string :name_2
             t.string :name_3
             t.string :care_of
-            t.string :salutation
-            t.string :suffix
             t.integer :street_number
             t.string :street_name
             t.string :unit_name

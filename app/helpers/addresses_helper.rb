@@ -159,26 +159,28 @@ def find_indicators(line)
             #in case the regex requires leading/trailing whitespace
             key_match.strip! 
             
-            #store the indicator, if there's a place to store it
-            #then keep as a string, or convert to integer
-            if hash[:key_label]
-                if hash[:key_type] == :string
-                    @address_hash[hash[:key_label]] = (key_db_match || key_match).split.map{|s| s.capitalize}.join(" ")
-                elsif hash[:key_type] == :integer
-                    @address_hash[hash[:key_label]] = (key_db_match || key_match).to_i
-                end
-            end
-            
             index = line.downcase.index(key_match)
             
             #make sure the value is after the key
             #example: key=>'#', value=>'/\d+', "3455 Edison Way, #17" should return 17, not 3455
             value_match = line.slice(index..line.size).match(hash[:value_regex]).to_s.strip
             
-            if hash[:value_type] == :string
-                @address_hash[hash[:value_label]] = value_match.split.map{|s| s.capitalize}.join(" ")
-            elsif hash[:value_type] == :integer
+            #store the indicator, if there's a place to store it
+            #then keep as a string, or convert to integer
+            if hash[:key_label]
+                if hash[:key_type] == :integer
+                    @address_hash[hash[:key_label]] = (key_db_match || key_match).to_i
+                else #if hash[:key_type] == :string || hash[:key_type] == nil
+                    @address_hash[hash[:key_label]] = (key_db_match || key_match).split.map{|s| s.capitalize}.join(" ")
+                end
+            end
+            
+
+            
+            if hash[:value_type] == :integer
                 @address_hash[hash[:value_label]] = value_match.to_i
+            else #if hash[:value_type] == :string || hash[:value_type] == nil
+                @address_hash[hash[:value_label]] = value_match.split.map{|s| s.capitalize}.join(" ")
             end
             
             #****************************DEBUG***************************************DEBUG******************************
@@ -191,7 +193,7 @@ def find_indicators(line)
             #if this was at the end of the address line, chop the 'apt x' off and continue
             #if not return nil so the loop can move to the next line
             if index > 0
-                line.slice!(index, line.size)
+                line.slice!(index..line.size)
                 #****************************DEBUG***************************************DEBUG******************************
                 # puts "index: '#{index}'"
                 # puts "line sliced: '#{line}'"

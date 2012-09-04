@@ -15,7 +15,8 @@ class AddressesController < ApplicationController
     if @address.save
       redirect_to root_path
     else
-      render 'index'
+        @addresses = Address.all
+        render 'index'
     end
   end
 end
