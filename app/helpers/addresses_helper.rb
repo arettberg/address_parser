@@ -57,7 +57,7 @@ def test_parser
         puts parse_address_text(s)
         puts ""
     end
-    return true
+    return
 end
 #********************DEBUG/TEST ONLY**********************************DEBUG/TEST ONLY**********************
 
