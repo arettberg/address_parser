@@ -152,6 +152,8 @@ def find_indicators(line)
     #look for 'apt', 'unit', "c/o", etc
     INDICATORS.each do |hash|
         if line.downcase =~ hash[:key_regex]
+            value_index = nil #reset just in case
+          
             key_match = line.downcase.match(hash[:key_regex]).to_s
             key_db_match = key_match.match(hash[:key_db_regex]).to_s.strip if hash[:key_db_regex]
             
@@ -159,12 +161,12 @@ def find_indicators(line)
             #in case the regex requires leading/trailing whitespace
             key_match.strip! 
             
-            index = line.downcase.index(key_match)
-            index += key_db_match.size if hash[:key_db_regex]
+            key_index = line.downcase.index(key_match)
+            value_index = key_index + key_db_match.size if hash[:key_db_regex]
             
             #make sure the value is after the key
             #example: key=>'#', value=>'/\d+', "3455 Edison Way, #17" should return 17, not 3455
-            value_match = line.slice(index..line.size).match(hash[:value_regex]).to_s.strip
+            value_match = line.slice((value_index || key_index)..line.size).match(hash[:value_regex]).to_s.strip
             
             #store the indicator, if there's a place to store it
             #then keep as a string, or convert to integer
@@ -185,21 +187,21 @@ def find_indicators(line)
             end
             
             #****************************DEBUG***************************************DEBUG******************************
-            puts "line: '#{line}'"
-            puts "key_match: '#{key_match}'"
-            puts "key_db_match: #{key_db_match}"
-            puts "value_match: '#{value_match}'"
+            # puts "line: '#{line}'"
+            # puts "key_match: '#{key_match}'"
+            # puts "key_db_match: #{key_db_match}"
+            # puts "value_match: '#{value_match}'"
             #****************************DEBUG***************************************DEBUG******************************
             
             #if this was at the end of the address line, chop the 'apt x' off and continue
             #if not return nil so the loop can move to the next line
-            if index > 0
-                line.slice!(index..line.size)
+            if key_index > 0
+                line.slice!(key_index..line.size)
                 #****************************DEBUG***************************************DEBUG******************************
                 # puts "index: '#{index}'"
                 # puts "line sliced: '#{line}'"
                 #****************************DEBUG***************************************DEBUG******************************
-            elsif index == 0
+            elsif key_index == 0
                 return nil
             end
         end
