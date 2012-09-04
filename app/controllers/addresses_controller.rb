@@ -19,4 +19,11 @@ class AddressesController < ApplicationController
         render 'index'
     end
   end
+  
+  def destroy
+    @address = Address.find(params[:id])
+    @address.destroy
+    
+    redirect_to root_path
+  end
 end
