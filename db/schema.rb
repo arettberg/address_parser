@@ -18,16 +18,18 @@ ActiveRecord::Schema.define(:version => 20120902073519) do
     t.string   "name_1"
     t.string   "name_2"
     t.string   "name_3"
+    t.string   "care_of"
     t.string   "salutation"
     t.string   "suffix"
-    t.string   "street_number"
+    t.integer  "street_number"
     t.string   "street_name"
-    t.string   "unit_number"
+    t.string   "unit_name"
+    t.integer  "unit_number"
+    t.integer  "po_box"
     t.string   "city"
     t.string   "state"
     t.integer  "zip_5"
     t.integer  "zip_4"
-    t.integer  "text_block_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
