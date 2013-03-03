@@ -3,8 +3,8 @@
 This program parses a block-text address in standard USPS format:
 
 <tt>
-	Peter Griffin
-	31 Spooner St.
+	Peter Griffin\n
+	31 Spooner St.\n
 	Quahog, RI 00093
 </tt>
 
@@ -30,7 +30,6 @@ Zip code may be in 5-digit form or 9-digit form, but the 4-digit suffix must be 
 
 The find_indicators method iterates through an array of hashes in the following format, in order to find keywords and patters:
 
-<tt>
 	{key_label: :box_name,
 	 value_label: :po_box,
 	 key_type: :string,
@@ -38,7 +37,6 @@ The find_indicators method iterates through an array of hashes in the following 
 	 key_regex: PO_BOX_FULL_REGEX,
 	 key_db_regex: PO_BOX_REGEX,
 	 value_regex: NUM_REGEX}
-</tt>
 
 • :key_label specifies the label under which to store the indicator key (ie "apt." or "#").
 	It is only required if this information must be saved for recall.
@@ -63,21 +61,17 @@ The relevance (or usefulness) of a POS tagger depends largely on the application
 
 As a simple (somewhat meaningless) test, I passed a set of strings through each of my helper methods, and the same strings through the POS tagger. The tagger performed both tasks in a fraction of the time, but as noted above the helper methods do the whole task, while the tagger only gets you halfway (less for the AddressParser). Also, the case can be made that performance is not very important for a task that will never be run in bulk (if that sentence didn't make sense, I blame my alma mater, they don't make you take english as a CS major).
 
-<tt>
 AddressParser:
 1.9.3p194 :006 > Benchmark.measure do
 1.9.3p194 :007 >     helper.test_parser
 1.9.3p194 :008?>   end
  =>   0.000000   0.000000   0.000000 (  0.000950)
-</tt>
 
-<tt>
 TaskParser:
 1.9.3-p194 :011 > Benchmark.measure do
 1.9.3-p194 :012 >     helper.test_parser
 1.9.3-p194 :013?>   end
  =>   0.000000   0.000000   0.000000 (  0.002097)
-</tt>
 
 <tt>
 Allens-Mac-Pro:tagger allen$ ruby test_tagger.rb
