@@ -28,13 +28,13 @@ Zip code may be in 5-digit form or 9-digit form, but the 4-digit suffix must be 
 
 The find_indicators method iterates through an array of hashes in the following format, in order to find keywords and patters:
 
-	{key_label: :box_name,
-	 value_label: :po_box,
-	 key_type: :string,
-	 value_type: :integer,
-	 key_regex: PO_BOX_FULL_REGEX,
-	 key_db_regex: PO_BOX_REGEX,
-	 value_regex: NUM_REGEX}
+ {key_label: :box_name,
+ value_label: :po_box,
+ key_type: :string,
+ value_type: :integer,
+ key_regex: PO_BOX_FULL_REGEX,
+ key_db_regex: PO_BOX_REGEX,
+ value_regex: NUM_REGEX}
 
 • :key_label specifies the label under which to store the indicator key (ie "apt." or "#").
 	It is only required if this information must be saved for recall.
