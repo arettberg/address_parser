@@ -1,12 +1,14 @@
-AddressParser - by Allen Rettberg
+==AddressParser - by Allen Rettberg
 
 This program parses a block-text address in standard USPS format:
 
-Peter Griffin
-31 Spooner St.
-Quahog, RI 00093
+<tt>
+	Peter Griffin
+	31 Spooner St.
+	Quahog, RI 00093
+</tt>
 
-List of possible attributes (*indicates required):
+==List of possible attributes (*indicates required):
 
 *name_1: 		Name line 1
  name_2: 		Name line 2
@@ -28,13 +30,15 @@ Zip code may be in 5-digit form or 9-digit form, but the 4-digit suffix must be 
 
 The find_indicators method iterates through an array of hashes in the following format, in order to find keywords and patters:
 
-{key_label: :box_name,
- value_label: :po_box,
- key_type: :string,
- value_type: :integer,
- key_regex: PO_BOX_FULL_REGEX,
- key_db_regex: PO_BOX_REGEX,
- value_regex: NUM_REGEX}
+<tt>
+	{key_label: :box_name,
+	 value_label: :po_box,
+	 key_type: :string,
+	 value_type: :integer,
+	 key_regex: PO_BOX_FULL_REGEX,
+	 key_db_regex: PO_BOX_REGEX,
+	 value_regex: NUM_REGEX}
+</tt>
 
 • :key_label specifies the label under which to store the indicator key (ie "apt." or "#").
 	It is only required if this information must be saved for recall.
@@ -53,33 +57,36 @@ The find_indicators method iterates through an array of hashes in the following 
 
 
 
-ASSIGNMENT QUESTIONS
+==Other (Partially) Related Thoughts
 
-#1
 The relevance (or usefulness) of a POS tagger depends largely on the application. In the case of an address parser, the POS tagger holds almost no relevance because what is being parsed is mostly names and numbers. In the case of a task parser, however, a POS tagger would help bit with the initial text processing. It would make the task of extracting the action verb as well as finding temporal indicators. It would only get you halfway, however, as the method would still need to create and properly fill the Time object.
 
 As a simple (somewhat meaningless) test, I passed a set of strings through each of my helper methods, and the same strings through the POS tagger. The tagger performed both tasks in a fraction of the time, but as noted above the helper methods do the whole task, while the tagger only gets you halfway (less for the AddressParser). Also, the case can be made that performance is not very important for a task that will never be run in bulk (if that sentence didn't make sense, I blame my alma mater, they don't make you take english as a CS major).
 
+<tt>
 AddressParser:
 1.9.3p194 :006 > Benchmark.measure do
 1.9.3p194 :007 >     helper.test_parser
 1.9.3p194 :008?>   end
  =>   0.000000   0.000000   0.000000 (  0.000950)
+</tt>
 
+<tt>
 TaskParser:
 1.9.3-p194 :011 > Benchmark.measure do
 1.9.3-p194 :012 >     helper.test_parser
 1.9.3-p194 :013?>   end
  =>   0.000000   0.000000   0.000000 (  0.002097)
+</tt>
 
+<tt>
 Allens-Mac-Pro:tagger allen$ ruby test_tagger.rb
 Task test strings => getTags:
   0.000000   0.000000   0.000000 (  0.000329)
 Address test strings => getTags:
   0.000000   0.000000   0.000000 (  0.000362)
+</tt>
 
-
-#2
 My first draft of this helper method wasn't very expandable or intelligent - it simply looked for keywords and patterns and filled in the appropriate fields based on what it saw (much like my task translator, which I also am slightly ashamed of). After sleeping on the problem for a night and coming back to it, I happened upon the find_indicator method, detailed above. 
 
 It's still not entirely complete, there are a few unnecessary lines that I could eliminate, and right now find_indicator only handles about 70% of the text where I could refactor further to make it handle almost everything. That said, it's pretty efficient, readable and expandable, providing you understand the concept before you set about adding patterns to it. I'm sure it's not the best way to parse an address, but it's pretty effective.
