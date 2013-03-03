@@ -3,8 +3,10 @@
 This program parses a block-text address in standard USPS format:
 
 <tt>
-	Peter Griffin\n
-	31 Spooner St.\n
+	Peter Griffin
+	
+	31 Spooner St.
+	
 	Quahog, RI 00093
 </tt>
 
