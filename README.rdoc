@@ -71,7 +71,8 @@ TaskParser:
  1.9.3-p194 :013?>   end
   =>   0.000000   0.000000   0.000000 (  0.002097)
 
-Allens-Mac-Pro:tagger allen$ ruby test_tagger.rb
+
+ Allens-Mac-Pro:tagger allen$ ruby test_tagger.rb
  Task test strings => getTags:
   0.000000   0.000000   0.000000 (  0.000329)
  Address test strings => getTags:
