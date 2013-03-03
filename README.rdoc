@@ -10,19 +10,19 @@ This program parses a block-text address in standard USPS format:
 
 ==List of possible attributes (*indicates required):
 
- *name_1: 		Name line 1
- name_2: 		Name line 2
- name_3: 		Name line 3
- care_of: 		If the address contains a 'care of' field
- *street_number: Street number - Required unless PO Box is present
- *street_name: 	Street name - Required unless PO Box is present
- unit_name:		"Apt.", "Unit", "#" etc. - if 'unit' is used, # must be present ('unit #' or 'unit#')
- unit_number:	Number of above unit category
- *po_box:		PO Box number - Required unless street address is present
- *city:			City
- *state:			State
- *zip_5:			5-digit zip code
- zip-4			4-digit zip suffix
+ *name_1: 				Name line 1
+ name_2: 					Name line 2
+ name_3: 					Name line 3
+ care_of: 				If the address contains a 'care of' field
+ *street_number: 	Street number - Required unless PO Box is present
+ *street_name: 		Street name - Required unless PO Box is present
+ unit_name:				"Apt.", "Unit", "#" etc. - if 'unit' is used, # must be present ('unit #' or 'unit#')
+ unit_number:			Number of above unit category
+ *po_box:					PO Box number - Required unless street address is present
+ *city:						City
+ *state:					State
+ *zip_5:					5-digit zip code
+ zip-4						4-digit zip suffix
 
 City/State/Zip must be on last line, any line beyond this line will be discarded. The only exception to this rule is that the zip code may occupy the line below city, state.
 
