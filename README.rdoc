@@ -71,13 +71,11 @@ TaskParser:
 1.9.3-p194 :013?>   end
  =>   0.000000   0.000000   0.000000 (  0.002097)
 
-<tt>
 Allens-Mac-Pro:tagger allen$ ruby test_tagger.rb
 Task test strings => getTags:
   0.000000   0.000000   0.000000 (  0.000329)
 Address test strings => getTags:
   0.000000   0.000000   0.000000 (  0.000362)
-</tt>
 
 My first draft of this helper method wasn't very expandable or intelligent - it simply looked for keywords and patterns and filled in the appropriate fields based on what it saw (much like my task translator, which I also am slightly ashamed of). After sleeping on the problem for a night and coming back to it, I happened upon the find_indicator method, detailed above. 
 
